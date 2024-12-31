@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dev":"npx tailwindcss -i src/static/css/tw/input.css -o src/static/css/custom/output.css --watch"
+  },
+  
+  
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
