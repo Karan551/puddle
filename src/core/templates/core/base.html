@@ -5,47 +5,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{% block title %}{% endblock title %} | Puddle</title>
-    
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <title>{% block title %} {% endblock %}| Puddle</title>
 
     <link rel="stylesheet" href="{% static 'css/custom/output.css' %}" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="flex flex-col justify-center">
-    <!---Here show nav bar-->
-    <nav
-      class="p-6 flex justify-between items-center border-gray-200 border-b bg-gray-200"
-    >
-      <a href="{% url 'core:index' %}" class="text-2xl font-semibold">Puddle</a>
+  <body class="flex flex-col">
+    <!-- -Here show nav bar -->
+    {% include 'core/navbar.html' %}
 
-      <div class="space-x-6">
-        <a href="#" class="text-xl font-semibold hover:text-gray-500"
-          >New Items</a
-        >
-        <a href="#" class="text-xl font-semibold hover:text-gray-500">Browse</a>
+    <!-- -Here show messages -->
 
-        <!---Check user status here-->
-        <a
-          href="#"
-          class="px-6 py-3 bg-teal-500 hover:bg-teal-700 rounded-lg text-xl text-gray-50 font-semibold"
-          >Sign Up</a
-        >
-
-        <a
-          href="#"
-          class="px-6 py-3 bg-gray-500 hover:bg-gray-700 rounded-lg text-xl text-gray-50 font-semibold"
-          >Log In</a
-        >
+    <div id="msg-container" class="p-6">
+      {% if messages %} {% for message in messages %}
+      <div
+        class="{% if message.tags == 'success' %} bg-teal-500 {% else %} bg-red-500 {% endif %} px-4 py-3 font-semibold text-center md:text-xl text-lg rounded-xl my-2 text-white"
+        id="message"
+      >
+        {{ message }}
       </div>
-    </nav>
-
-    <!---Here show messages-->
+      {% endfor %} {% endif %}
+    </div>
 
     <main class="min-h-screen flex-grow my-2">
-      {% block content %} {% endblock content %}
+      {% block content %} {% endblock %}
     </main>
 
-    <!---Here show footer-->
+    <!-- -Here show footer -->
     <footer class="p-6 flex justify-between bg-gray-800">
       <div class="w-2/3 pr-10">
         <h3 class="mb-5 text-gray-200 font-semibold">About</h3>
@@ -67,7 +53,9 @@
           </li>
 
           <li>
-            <a href="{% url 'core:contact' %}" class="text-lg text-teal-300 hover:text-teal-600"
+            <a
+              href="{% url 'core:contact' %}"
+              class="text-lg text-teal-300 hover:text-teal-600"
               >Contact Us</a
             >
           </li>
@@ -86,8 +74,7 @@
         </ul>
       </div>
     </footer>
-
     <script src="{% static 'js/main.js' %}"></script>
-    {% block js %}{% endblock js %}
+    {% block js %} {% endblock %}
   </body>
 </html>

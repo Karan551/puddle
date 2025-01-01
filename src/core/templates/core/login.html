@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+{% block title %}
+  Signup {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <section class="w-1/2 mx-auto p-6 my-6 bg-gray-300 rounded-lg flex-grow">
+    <h1 class="mb-5 text-3xl font-semibold text-center">Login</h1>
+
+    <form method="post">
+      {% csrf_token %}
+
+      {% if form.errors or form.non_field_errors %}
+      <div class="mb-3 rounded-xl bg-red-500 p-6 font-semibold text-lg text-white error-msg" id="error-msg">
+        
+        {% for field in form %}
+          {{ field.errors|title }}
+        {% endfor %}
+
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+
+      {% for field in form %}
+        <div class="mb-2">
+          <label for="{{ field.auto_id }}" class="pl-1 py-2 text-lg md:text-xl font-semibold inline-block">{{ field.label }}</label>
+
+          {{ field }}
+          
+        </div>
+      {% endfor %}
+
+      <button class="px-6 py-3 font-semibold text-lg md:text-2xl rounded-xl bg-teal-500 hover:bg-teal-700 text-white mt-2">Submit</button>
+    </form>
+  </section>
+{% endblock %}
