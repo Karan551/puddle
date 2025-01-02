@@ -23,34 +23,44 @@ const initApp = () => {
             } */
         }, 3000);
 
+    }
 
-        // ---------------To handle logout form
-        const logoutForm = document.querySelector("#logout-form") || null;
+    // ---------------To handle form
+    const logoutForm = document.querySelector("#logout-form") || null;
 
-        console.log("this is form", logoutForm);
+    const deleteProductForm = document.querySelector("#delete-product") || null;
 
-        if (logoutForm) {
-            logoutForm.addEventListener("submit",
-                function (event) {
-                    const userConfirmed = confirm("Are you sure to logout ? ");
 
-                    if (!userConfirmed) {
-                        event.preventDefault();
-                    }
-                });
-        }
+    function handleForm(element, label = "") {
+        console.log("this is element", element);
 
-        /* if (logoutForm) {
-            logoutForm.addEventListener("submit", function (event) {
-                console.log("Submit button clicked");
-                const userConfirmed = confirm("Are you sure you want to logout?");
+        if (element) {
+            element.addEventListener("submit", function (event) {
+                const userConfirmed = confirm(`Are you sure to ${label} ?`);
+
                 if (!userConfirmed) {
                     event.preventDefault();
                 }
             });
-        } */
+        }
     }
+
+    
+
+    
+
+    handleForm(logoutForm, 'logout');
+    handleForm(deleteProductForm, 'delete this item');
+
+
+
+
+
+
 };
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", initApp);

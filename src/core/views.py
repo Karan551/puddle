@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from item.models import Category, Item
 from core.forms import SignupForm, LoginForm
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate,alogout
 # Create your views here.
 
 

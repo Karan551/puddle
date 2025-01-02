@@ -45,6 +45,7 @@ def add_item_view(request):
     return render(request, "item/form.html", context)
 
 
+@login_required
 def edit_item_view(request, item_id):
     context = {
         "title": "Edit Product"
@@ -53,14 +54,26 @@ def edit_item_view(request, item_id):
     item = get_object_or_404(Item, id=item_id, created_by=request.user)
     if request.method == "POST":
         form = EditItemForm(request.POST, request.FILES, instance=item)
-        
+
         if form.is_valid():
             form.save()
-            
-            messages.success(request,"Item has been updated successfully.")
-            return redirect("item:item_detail", id=item.id)  
+
+            messages.success(request, "Item has been updated successfully.")
+            return redirect("item:item_detail", id=item.id)
 
     form = EditItemForm(instance=item)
     context["form"] = form
 
     return render(request, "item/form.html", context)
+
+
+@login_required
+def delete_item_view(request, item_id):
+    item = get_object_or_404(
+        Item, id=item_id, is_sold=False, created_by=request.user)
+    
+    item.delete()
+    messages.success(request,"Item has been deleted successfully.")
+    
+    # FIXME: change path
+    return redirect("/")
