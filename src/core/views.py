@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from item.models import Category, Item
 from core.forms import SignupForm, LoginForm
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate,alogout
+from django.contrib.auth import login, logout, authenticate, alogout
 # Create your views here.
 
 
@@ -14,9 +14,25 @@ def index(request):
 
     context = {
         "categories": categories,
-        "items": items
+        "items": items,
+        "title": "Newest"
     }
 
+    return render(request, "core/index.html", context)
+
+
+def catgories_prod_view(request, category_id):
+    categories = Category.objects.all()
+    category = Category.objects.get(id=category_id)
+    items = category.items.all()
+    
+    title = category.name[:-1] if category.name[-1] == "s" else category.name
+
+    context = {
+        "items": items,
+        "title": title,
+        "categories": categories
+    }
     return render(request, "core/index.html", context)
 
 
@@ -55,7 +71,7 @@ def user_login(request):
 
 def user_logout(request):
     if request.method == "POST":
-        
+
         logout(request)
         messages.success(request, "Logout Successfully.")
         # redirect to home
