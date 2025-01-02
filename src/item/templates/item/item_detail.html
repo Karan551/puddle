@@ -1,5 +1,5 @@
 {% extends 'core/base.html' %} {% block title %}
-  Product Detail {{ block.super }}
+  {{ item.name }} {{ block.super }}
 {% endblock %}
 
 {% block content %}
@@ -27,7 +27,16 @@
         {{ item.description }}
       </p>
 
-      <a href="#" class="inline-block text-white bg-yellow-500 hover:bg-yellow-700 px-6 py-4 rounded-xl font-semibold mt-4 text-lg md:text-2xl">Contact Seller</a>
+      {% if request.user == item.created_by %}
+        <div class="mt-4 rounded-xl bg-white p-6" >
+          <p class=" text-lg text-gray-600" >This is your item.</p>
+          <a href="{% url 'item:edit_item' item.id %}" class="inline-block text-white bg-yellow-500 hover:bg-yellow-700 px-6 py-4 rounded-xl font-semibold mt-4 mr-3 text-lg md:text-2xl">Edit</a>
+
+          <a href="#" class="inline-block text-white bg-red-500 hover:bg-red-700 px-6 py-4 rounded-xl font-semibold mt-4 text-lg md:text-2xl">Delete</a>
+        </div>
+      {% else %}
+        <a href="#" class="inline-block text-white bg-teal-500 hover:bg-teal-700 px-6 py-4 rounded-xl font-semibold mt-4 text-lg md:text-2xl">Contact Seller</a>
+      {% endif %}
     </div>
   </section>
 
@@ -39,7 +48,7 @@
           <a href="{% url 'item:item_detail' item.id %}">
             {% if item.image %}
               <div>
-                <img class="rounded-t-xl"  src="{{ item.image.url }}" alt="{{ item.name }}" />
+                <img class="rounded-t-xl" src="{{ item.image.url }}" alt="{{ item.name }}" />
               </div>
 
               <div class="p-6 bg-white rounded-b-xl">

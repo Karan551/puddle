@@ -4,7 +4,7 @@
   </div>
 
   <div class="flex items-center justify-center md:space-x-6">
-    <a href="#" class="text-lg md:text-xl hover:text-gray-500 font-semibold">New Item</a>
+    <a href="{% url 'item:add_item' %}" class="text-lg md:text-xl hover:text-gray-500 font-semibold">New Item</a>
     <a href="#" class="text-lg md:text-xl hover:text-gray-500 font-semibold">Browse</a>
 
     {% if request.user.is_authenticated %}

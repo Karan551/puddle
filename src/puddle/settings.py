@@ -105,6 +105,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# to handle protected route.
+LOGIN_URL="core:login"
+
+#
+LOGIN_REDIRECT_URL="core:index"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
