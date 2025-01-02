@@ -1,0 +1,47 @@
+{% extends 'core/base.html' %} {% block title %}
+  Search Items {{ block.super }}
+{% endblock %} 
+
+{% load custom_tag %}
+
+{% block content %}
+  <section class="grid grid-cols-4 gap-4 bg-gray-200 p-6">
+    <div class="col-span-1">
+      <form>
+        <input class="w-full px-8 py-4 rounded-xl outline-none focus:ring-1 focus:ring-indigo-600 font-semibold text-lg" type="text" name="query" value="{{ query }}" id="query" placeholder="Search Here...." required />
+
+        <button type="submit" class="mt-4 px-8 py-4 rounded-xl text-lg md:text-xl font-semibold text-white bg-teal-500 hover:bg-teal-700">Search</button>
+        <a href="{% url 'item:search_item' %}" class="mt-4 inline-block px-8 py-4 bg-yellow-500 hover:bg-yellow-700 rounded-xl text-lg md:text-xl text-white font-semibold">Clear</a>
+      </form>
+
+      
+      <div class="mt-4">
+        <p class="text-xl font-semibold">Categories</p>
+        <ul class="space-y-4 mt-2 md:mt-4 bg-white rounded-xl">
+          {% for category in categories %}
+            <li class="px-4 py-2 rounded-xl text-lg md:text-xl 
+            {% if request.GET.category_id|to_int == category.id %}
+            bg-blue-500 text-white
+            {% endif %}">
+              <a href="{% url 'item:search_item'%}?category_id={{category.id}} ">{{ category.name }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <hr class="my-3" />
+
+        <p class="font-semibold text-xl">Clear Filters</p>
+       
+        <ul class="my-4">
+          <li>
+            <a href="{% url 'item:search_item' %}" class="mt-4 inline-block px-8 py-4 bg-yellow-500 hover:bg-yellow-700 rounded-xl text-lg md:text-xl text-white font-semibold">Clear</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-span-3">
+      {% include 'item/items.html' %}
+    </div>
+  </section>
+{% endblock %}

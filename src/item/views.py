@@ -1,10 +1,36 @@
 from django.shortcuts import render, redirect
-from .models import Item
+from .models import Item, Category
 from django.shortcuts import get_object_or_404
 from item.forms import AddItemForm, EditItemForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 # Create your views here.
+
+
+def search_items_view(request):
+    query = request.GET.get("query", "")
+    category_id = request.GET.get("category_id", "")
+
+    
+    items = Item.objects.filter(is_sold=False)
+    categories = Category.objects.all()
+
+    
+    if query:
+        items = items.filter(Q(name__icontains=query) |
+                             Q(description__icontains=query))
+
+    if category_id:
+        category = Category.objects.get(id=category_id)
+        items = category.items.all()
+
+    context = {
+        "items": items,
+        "query": query,
+        "categories": categories
+    }
+    return render(request, "item/search_items.html", context)
 
 
 def item_detail(request, id):
