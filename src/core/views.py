@@ -10,7 +10,7 @@ from django.contrib.auth import login, logout, authenticate, alogout
 def index(request):
 
     categories = Category.objects.all()
-    items = Item.objects.filter(is_sold=False)[:]
+    items = Item.objects.filter(is_sold=False)[:6]
 
     context = {
         "categories": categories,
