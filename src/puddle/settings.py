@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # project apps
     'core.apps.CoreConfig',
     'item.apps.ItemConfig',
+    'dashboard.apps.DashboardConfig',
 ]
 
 MIDDLEWARE = [

@@ -71,9 +71,8 @@ def edit_item_view(request, item_id):
 def delete_item_view(request, item_id):
     item = get_object_or_404(
         Item, id=item_id, is_sold=False, created_by=request.user)
-    
+
     item.delete()
-    messages.success(request,"Item has been deleted successfully.")
-    
-    # FIXME: change path
-    return redirect("/")
+    messages.success(request, "Item has been deleted successfully.")
+
+    return redirect("dashboard:dashboard_home")
