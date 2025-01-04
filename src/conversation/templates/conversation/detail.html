@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+  Conversation {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-6 text-3xl">Conversation</h1>
+
+<div class="space-y-6">
+    {% for message in conversation.messages.all %}
+    
+    <div class="p-6 flex 
+    {%  if message.created_by == request.user %}
+    bg-blue-400
+    {%  else %}
+    bg-gray-400
+    {%  endif %}
+    
+    text-white
+    rounded-xl
+    " >
+        <div>
+            <div class="mb-4"><strong>{{message.created_by.username}}</strong>@ {{message.created_at}}</div>
+            <p>{{message.content}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
