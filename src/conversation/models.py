@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class Conversation(models.Model):
     item = models.ForeignKey(
         Item, related_name="conversations", on_delete=models.CASCADE)
-    memeber = models.ManyToManyField(User, related_name="my_conversations")
+    members = models.ManyToManyField(User, related_name="my_conversations")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
