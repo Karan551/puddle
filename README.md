@@ -50,13 +50,6 @@ Puddle is a web application designed for managing and interacting with products.
 
 - **Backend:** [Django](https://www.djangoproject.com/)
 - **Frontend:** [Tailwind CSS](https://tailwindcss.com/)
-- **Database:** SQLite (default) / PostgreSQL (optional)
+- **Database:** SQLite (default) 
 
 ---
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/puddle.git
-   cd puddle
